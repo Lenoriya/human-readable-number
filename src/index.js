@@ -3,13 +3,14 @@ module.exports = function toReadable (number) {
         switch (n) {
             case 1: return 'one';
             case 2: return 'two';
-            case 3: return 'tree';
+            case 3: return 'three';
             case 4: return 'four';
             case 5: return 'five';
             case 6: return 'six';
             case 7: return 'seven';
             case 8: return 'eight';
             case 9: return 'nine';
+            case 0: return 'zero';
         }
     }
 
@@ -36,12 +37,18 @@ module.exports = function toReadable (number) {
         }
     }
 
-    if (number < 10) return one_digit(number);
-    else if ((number >= 10) && (number <= 20)) return two_digit(number);
-    else if (number < 100) {
-        if (number % 10 === 0) return two_digit(number);
-        else return (two_digit(Math.floor(number/10)) +' '+ (one_digit(number % 10)));
+    function hundred (number) {
+        if (number < 10) return one_digit(number);
+        else if ((number >= 10) && (number <= 20)) return two_digit(number);
+        else {
+            if (number % 10 === 0) return two_digit(number);
+            else return (two_digit(Math.floor(number/10)*10) +' '+ (one_digit(number % 10)));
+        }
+
+    
     }
-    else return (one_digit(Math.floor(number/100))+ ' hundred ')
+    if ((number >= 100) && (number % 100 === 0)) return (one_digit(Math.floor(number/100))+ ' hundred');
+    else if (number > 100) return (one_digit(Math.floor(number/100))+ ' hundred '+ hundred(number % 100));
+    else return hundred (number);
   
 }
