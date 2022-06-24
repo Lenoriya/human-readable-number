@@ -42,5 +42,6 @@ module.exports = function toReadable (number) {
         if (number % 10 === 0) return two_digit(number);
         else return (two_digit(Math.floor(number/10)) +' '+ (one_digit(number % 10)));
     }
+    else return (one_digit(Math.floor(number/100))+ ' hundred ')
   
 }
